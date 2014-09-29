@@ -1,0 +1,28 @@
+<% if post.errors.any? %>
+  <div class="alert alert-error">
+    <h5>There were some errors</h5>
+    <ul>
+      <% post.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="well">
+  <%= form_for post do |post_form| %>
+    <div class="control-group">
+      <%= post_form.label :title %>
+      <%= post_form.text_field :title %>
+    </div>
+    <div class="control-group">
+      <%= post_form.label :url %>
+      <%= post_form.text_field :url %>
+    </div>
+    <div class="control-group">
+      <%= post_form.label :description %>
+      <%= post_form.text_area :description, rows: 5 %>
+    </div>
+    <%= post_form.submit class: 'btn btn-primary' %>
+  <% end %>
+</div>
