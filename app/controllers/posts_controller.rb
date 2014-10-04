@@ -9,7 +9,9 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
-  def show; end
+  def show
+    @comment = Comment.new
+  end
 
   def new
     @post = Post.new
@@ -38,7 +40,9 @@ class PostsController < ApplicationController
     end
   end
 
+  private
+
   def post_params
-    params.require(:post).permit(:title, :url, :description)
+    params.require(:post).permit(:title, :url, :description, category_ids: [])
   end
 end

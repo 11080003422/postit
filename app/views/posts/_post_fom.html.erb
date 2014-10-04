@@ -1,13 +1,4 @@
-<% if post.errors.any? %>
-  <div class="alert alert-error">
-    <h5>There were some errors</h5>
-    <ul>
-      <% post.errors.full_messages.each do |error_message| %>
-        <li><%= error_message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render 'shared/form_errors', obj: post %>
 
 <div class="well">
   <%= form_for post do |post_form| %>
@@ -22,6 +13,10 @@
     <div class="control-group">
       <%= post_form.label :description %>
       <%= post_form.text_area :description, rows: 5 %>
+    </div>
+    <div class="control-group">
+      <%= post_form.label :categories %>
+      <%= post_form.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true}) %>
     </div>
     <%= post_form.submit class: 'btn btn-primary' %>
   <% end %>
