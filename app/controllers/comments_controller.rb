@@ -7,11 +7,24 @@ class CommentsController < ApplicationController
     @comment.creator = current_user
 
     if @comment.save
-      flash[:notice] = "Comment successfully added"
+      flash[:notice] = 'Comment successfully added'
       redirect_to post_path(@post)
     else
       render 'posts/show'
     end
+  end
+
+  def vote
+    comment = Comment.find(params[:id])
+    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: comment)
+
+    if vote.valid?
+      flash[:notice] = 'Thank you for your vote'
+    else
+      flash[:error] = 'There was an error, voting unsuccessful'
+    end
+
+    redirect_to :back
   end
 
   private
