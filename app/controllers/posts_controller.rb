@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :require_user, except: [:show, :index]
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by_slug(params[:id])
   end
 
   def index
@@ -42,10 +42,10 @@ class PostsController < ApplicationController
   end
 
   def vote
-    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+    @vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
 
     respond_to do |format|
-      format.js {}
+      format.js
     end
   end
 
